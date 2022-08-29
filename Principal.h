@@ -5,6 +5,7 @@
 #include "Professor.h"
 #include "Aluno.h"
 #include "Departamento.h"
+#include "Disciplina.h"
 #ifndef SISTEMA_ACADEMICO_PRINCIPAL_H
 #define SISTEMA_ACADEMICO_PRINCIPAL_H
 
@@ -14,7 +15,9 @@ private:
     Professor Newton, Einstein, Simao;
     Universidade Cambridge, Princeton, UTFPR;
     Departamento DAINF, DAELN, DAFIS, DAQUI, FisicaCambridge, FisicaPrinceton;
-    Aluno Bruno;
+    Disciplina fundProg, tecProg, estDados;
+    Aluno Bruno, Joao, Pedro, Renato, Renato2;
+
 
     int diaAt;
     int mesAt;
