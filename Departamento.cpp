@@ -4,20 +4,22 @@
 #include "stdafx.h"
 #include "Departamento.h"
 #include "Universidade.h"
-#include "Disciplina.h"
+
+
 
 Departamento::Departamento(char const *n) {
+    pUniv = NULL;
+    lista = new listaDisciplinas(n, -1);
     setNome(n);
-    pPrimeiraDisciplina=NULL;
-    pDisciplinaAtual=NULL;
 }
 
 Departamento::~Departamento() {
-
+        delete(lista);
 }
 
 void Departamento::setNome(const char *n) {
     strcpy(nome, n);
+    lista->setNome(n);
 }
 
 char *Departamento::getNome() {
@@ -29,22 +31,9 @@ void Departamento::setUniv(Universidade *universidade) {
 }
 
 void Departamento::setDisciplina(Disciplina *disc) {
-    if(pPrimeiraDisciplina == NULL) {
-        pPrimeiraDisciplina = disc;
-        pDisciplinaAtual = disc;
-    }
-    else
-    {
-        pDisciplinaAtual->proxDisciplina = disc;
-        disc->antDisciplina = pDisciplinaAtual;
-        pDisciplinaAtual = disc;
-    }
+    lista->setDisciplina(disc);
 }
 
 void Departamento::imprimeDisciplinas() {
-    Disciplina* aux;
-    cout<<"Disciplinas do "<<getNome()<<':'<<endl;
-    for(aux = pPrimeiraDisciplina ; aux!=NULL; aux = aux->proxDisciplina)
-        cout<<aux->getNome()<<endl;
-
+    lista->imprimeDisciplinas();
 }

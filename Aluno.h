@@ -7,12 +7,12 @@
 
 #include "Pessoa.h"
 #include "Universidade.h"
+
 class Aluno: public Pessoa {
 private:
     int RA;
     Universidade* pUniv;
 public:
-    Aluno *pAntAluno, *pProxAluno;
     Aluno(int diaNa, int mesNa, int anoNa, char const * nome, int RegAc);
     Aluno();
     ~Aluno();

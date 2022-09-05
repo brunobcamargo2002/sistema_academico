@@ -4,15 +4,17 @@
 
 #include "Universidade.h"
 Universidade::Universidade(char const * n) {
+    lista = new listaDepartamentos(n, -1);
     setNome(n);
 }
 
 Universidade::~Universidade() {
-
+    delete(lista);
 }
 
 void Universidade::setNome(char const *n) {
     strcpy(Nome, n);
+    lista->setNome(n);
 }
 
 char* Universidade::getNome() {
@@ -21,12 +23,9 @@ char* Universidade::getNome() {
 
 void Universidade::setDepartamento(Departamento* departamento)
 {
-    pDptos.push_back(departamento);
+    lista->setDpto(departamento);
 }
 
 void Universidade::imprimeDepartamentos() {
-    list<Departamento*>::iterator iterador;
-    cout<<"Departamentos da "<<getNome()<<":"<<endl;
-    for(iterador=pDptos.begin(); iterador!=pDptos.end();iterador++)
-        cout<<(*iterador)->getNome()<<endl;
+    lista->imprimeDptos();
 }

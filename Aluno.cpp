@@ -7,8 +7,6 @@
 Aluno::Aluno(int diaNa, int mesNa, int anoNa, const char *nome, int RegAc=-1):Pessoa(diaNa, mesNa, anoNa, nome) {
     setRA(RA);
     pUniv = NULL;
-    pAntAluno= NULL;
-    pProxAluno= NULL;
 }
 Aluno::Aluno(){
     RA = -1;

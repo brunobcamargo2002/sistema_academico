@@ -5,16 +5,16 @@
 #ifndef SISTEMA_ACADEMICO_UNIVERSIDADE_H
 #define SISTEMA_ACADEMICO_UNIVERSIDADE_H
 
-#include <list>
 using namespace std;
 #include "stdafx.h"
-#include "Departamento.h"
+#include "listaDepartamentos.h"
 
 
 class Universidade {
 private:
     char Nome[30];
-    list<Departamento*> pDptos;
+    listaDepartamentos* lista;
+
 
 public:
     void setNome(char const * n);

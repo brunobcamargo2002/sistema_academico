@@ -4,21 +4,19 @@
 
 #ifndef SISTEMA_ACADEMICO_DISCIPLINA_H
 #define SISTEMA_ACADEMICO_DISCIPLINA_H
+#include "stdafx.h"
 #include "Aluno.h"
+#include "listaAlunos.h"
 #include "Departamento.h"
 class Disciplina {
 private:
     char nome[150];
     Departamento* dptoFiliado;
-    int maxAlunos;
-    int numAlunos;
-    Aluno* pPrimeiroAluno;
-    Aluno* pAlunoAtual;
-
+    listaAlunos lista;
 
 
 public:
-    Disciplina *antDisciplina, *proxDisciplina;
+
     Disciplina(const char * codigo="");
     ~Disciplina();
     void setNome(const char * codigo);
@@ -27,9 +25,10 @@ public:
     void setAluno(Aluno *aluno);
     void removeAluno(Aluno *aluno);
     void imprimeAlunos();
-
-
-
+    void setNota1(Aluno* aluno, float nota1);
+    void setNota2(Aluno* aluno, float nota2);
+    void addFalta(Aluno* aluno, int f);
+    void imprimeMedias();
 
 
 };

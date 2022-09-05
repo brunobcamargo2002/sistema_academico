@@ -5,18 +5,13 @@
 #ifndef SISTEMA_ACADEMICO_DEPARTAMENTO_H
 #define SISTEMA_ACADEMICO_DEPARTAMENTO_H
 #include "stdafx.h"
-#include <list>
-using namespace std;
-
-class Disciplina;
+#include "listaDisciplinas.h"
 class Universidade;
 class Departamento {
 private:
     char nome[30];
     Universidade* pUniv;
-    Disciplina* pPrimeiraDisciplina;
-    Disciplina* pDisciplinaAtual;
-
+    listaDisciplinas* lista;
 
 public:
     Departamento(char const *n="");

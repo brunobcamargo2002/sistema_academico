@@ -26,6 +26,19 @@ public:
     Principal();
     ~Principal();
     void Executar();
+
+    void inicializarUniversidade();
+    void inicializarDepartamento();
+    void inicializarDisciplina();
+    void inicializarProfessor();
+    void inicializarAluno();
+
+    void execUniversidade();
+    void execDepartamento();
+    void execDisciplina();
+    void execProfessor();
+    void execAluno();
+
 };
 
 

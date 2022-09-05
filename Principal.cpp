@@ -5,57 +5,14 @@
 #include "Principal.h"
 
 
-Principal::Principal():
-Newton(4, 1, 1643, "Newton"),
-Einstein(14, 3, 1879, "Einstein"),
-Simao(3, 10, 1976, "Simão"),
-Bruno(6, 2, 2002, "Bruno", 2319136),
-Joao(5,12,2001,"Joao",321321),
-Pedro(7,11,2003,"Pedro",4324324),
-Renato(24,6,2000,"Renato",4324321),
-Renato2(25,7,2001,"Renato", 432432),
-Cambridge("Universidade de Cambridge"), Princeton("Universidade de Princeton"), UTFPR("UTFPR"),
-FisicaCambridge("Dep. Fis. Cambridge"),
-FisicaPrinceton("Dep Fis. Princeton"),
-DAINF("DAINF"), DAELN("DAELN"), DAFIS("DAFIS"), DAQUI("DAQUI"),
-fundProg("Fundamentos de Programação"), tecProg("Técnicas de programação"), estDados("Estrutura de dados")
+Principal::Principal()
 {
-    //Associando(embora seja uma agregação) as universidades com seus respectivos departamentos.
-    Cambridge.setDepartamento(&FisicaCambridge);
-    Princeton.setDepartamento(&FisicaPrinceton);
-    UTFPR.setDepartamento(&DAINF);
-    UTFPR.setDepartamento(&DAELN);
-    UTFPR.setDepartamento(&DAFIS);
-    UTFPR.setDepartamento(&DAQUI);
 
-    //Associando os professores com suas respectivas universidades.
-    Newton.setUnivAfiliada(&Cambridge);
-    Einstein.setUnivAfiliada(&Princeton);
-    Simao.setUnivAfiliada(&UTFPR);
-
-    DAINF.setDisciplina(&fundProg);
-    DAINF.setDisciplina(&tecProg);
-    DAINF.setDisciplina(&estDados);
-    fundProg.setDpto(&DAINF);
-    tecProg.setDpto(&DAINF);
-    estDados.setDpto(&DAINF);
-    //Associando os alunos com suas respectivas universidades.
-    Bruno.setUniv(&UTFPR);
-    Joao.setUniv(&UTFPR);
-    Pedro.setUniv(&UTFPR);
-    Renato.setUniv(&UTFPR);
-    Renato2.setUniv(&UTFPR);
-
-    tecProg.setAluno(&Renato);
-    tecProg.setAluno(&Joao);
-    tecProg.setAluno(&Pedro);
-    tecProg.setAluno(&Renato2);
-    tecProg.setAluno(&Bruno);
-
-    //Associando os professores com suas respectivas universidades.
-    Newton.setDptoAfiliado(&FisicaCambridge);
-    Einstein.setDptoAfiliado(&FisicaPrinceton);
-    Simao.setDptoAfiliado(&DAINF);
+    inicializarUniversidade();
+    inicializarDepartamento();
+    inicializarProfessor();
+    inicializarAluno();
+    inicializarDisciplina();
 
     struct tm *local;
     time_t segundos;
@@ -71,15 +28,132 @@ Principal::~Principal() {
 }
 void Principal::Executar(){
 
-    UTFPR.imprimeDepartamentos();
+    execUniversidade();
+    execDepartamento();
+    execProfessor();
+    execAluno();
+    execDisciplina();
 
-    //Calcula a idade das pessoas.
+}
+
+void Principal::inicializarUniversidade() {
+
+    Cambridge.setNome("Universidade de Cambridge");
+    Princeton.setNome("Universidade de Princeton");
+    UTFPR.setNome("UTFPR");
+
+    //Associando(embora seja uma agregação) as universidades com seus respectivos departamentos.
+    Cambridge.setDepartamento(&FisicaCambridge);
+    Princeton.setDepartamento(&FisicaPrinceton);
+    UTFPR.setDepartamento(&DAINF);
+    UTFPR.setDepartamento(&DAELN);
+    UTFPR.setDepartamento(&DAFIS);
+    UTFPR.setDepartamento(&DAQUI);
+
+}
+
+void Principal::inicializarDepartamento() {
+    DAINF.setNome("DAINF");
+    DAELN.setNome("DAELN");
+    DAFIS.setNome("DAFIS");
+    DAQUI.setNome("DAQUI");
+    FisicaCambridge.setNome("Dep. Fis. Cambridge");
+    FisicaPrinceton.setNome("Dep Fis. Princeton");
+
+    DAINF.setDisciplina(&fundProg);
+    DAINF.setDisciplina(&tecProg);
+    DAINF.setDisciplina(&estDados);
+
+
+    DAINF.setUniv(&UTFPR);
+    DAELN.setUniv(&UTFPR);
+    DAFIS.setUniv(&UTFPR);
+    DAQUI.setUniv(&UTFPR);
+    FisicaCambridge.setUniv(&Cambridge);
+    FisicaPrinceton.setUniv(&Princeton);
+}
+
+void Principal::inicializarDisciplina() {
+    fundProg.setNome("Fundamentos de Programação");
+    tecProg.setNome("Técnicas de programação");
+    estDados.setNome("Estrutura de dados");
+
+    fundProg.setDpto(&DAINF);
+    tecProg.setDpto(&DAINF);
+    estDados.setDpto(&DAINF);
+
+    tecProg.setAluno(&Renato2);
+    tecProg.setAluno(&Joao);
+    tecProg.setAluno(&Pedro);
+    tecProg.setAluno(&Renato);
+    tecProg.setAluno(&Bruno);
+
+    estDados.setAluno(&Pedro);
+    estDados.setAluno(&Joao);
+
+}
+
+void Principal::inicializarProfessor() {
+    Newton.Inicializa(4, 1, 1643, "Newton");
+    Einstein.Inicializa(14, 3, 1879, "Einstein");
+    Simao.Inicializa(3, 10, 1976, "Simão");
+
+    Newton.setUnivAfiliada(&Cambridge);
+    Einstein.setUnivAfiliada(&Princeton);
+    Simao.setUnivAfiliada(&UTFPR);
+
+    Newton.setDptoAfiliado(&FisicaCambridge);
+    Einstein.setDptoAfiliado(&FisicaPrinceton);
+    Simao.setDptoAfiliado(&DAINF);
+
+}
+
+void Principal::inicializarAluno() {
+    Bruno.Inicializa(6, 2, 2002, "Bruno");
+    Joao.Inicializa(5,12,2001,"Joao");
+    Pedro.Inicializa(7,11,2003,"Pedro");
+    Renato.Inicializa(24,6,2000,"Renato");
+    Renato2.Inicializa(25,7,2001,"Renato");
+
+    Bruno.setRA(2319136);
+    Joao.setRA(34234);
+    Pedro.setRA(4234324);
+    Renato.setRA(65654);
+    Renato2.setRA(546547);
+
+    Bruno.setUniv(&UTFPR);
+    Joao.setUniv(&UTFPR);
+    Pedro.setUniv(&UTFPR);
+    Renato.setUniv(&UTFPR);
+    Renato2.setUniv(&UTFPR);
+}
+
+void Principal::execUniversidade() {
+    UTFPR.imprimeDepartamentos();
+}
+
+void Principal::execDepartamento() {
+    DAINF.imprimeDisciplinas();
+}
+
+void Principal::execDisciplina() {
+    tecProg.removeAluno(&Renato);
+    tecProg.imprimeAlunos();
+    estDados.imprimeAlunos();
+    tecProg.setNota1(&Bruno, 9.5);
+    tecProg.setNota1(&Pedro, 8);
+    tecProg.setNota2(&Bruno, 9.8);
+    tecProg.setNota2(&Pedro, 7);
+    tecProg.imprimeMedias();
+
+}
+
+
+void Principal::execProfessor() {
     Newton.calcIdade(diaAt, mesAt, anoAt);
     Einstein.calcIdade(diaAt, mesAt, anoAt);
     Simao.calcIdade(diaAt, mesAt, anoAt);
-    Bruno.calcIdade(diaAt, mesAt, anoAt);
 
-    //Imprime a universidade a qual o profesor trabalha e, também, o departamento.
     Newton.ondeTrabalho();
     Newton.ondeDepartamentoTrabalho();
     Einstein.ondeTrabalho();
@@ -87,17 +161,10 @@ void Principal::Executar(){
     Simao.ondeTrabalho();
     Simao.ondeDepartamentoTrabalho();
 
-    //Imprime a universidade a qual o aluno estuda.
+}
+
+void Principal::execAluno() {
+    Bruno.calcIdade(diaAt, mesAt, anoAt);
     Bruno.OndeEstudo();
-
-    //Imprime as disciplinas dos departamentos.
-    DAINF.imprimeDisciplinas();
-
-    //Remove os alunos de uma determina disciplina.
-
-    //Imprime os alunos de uma determinada disciplina.
-    tecProg.imprimeAlunos();
-
-
 
 }
