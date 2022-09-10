@@ -26,7 +26,7 @@ Aluno *elAluno::getAluno() {
 }
 
 char *elAluno::getNome() {
-    aluno->getNome();
+    return aluno->getNome();
 }
 
 void elAluno::setNota1(float n1) {

@@ -3,18 +3,16 @@
 //
 
 #include "Universidade.h"
-Universidade::Universidade(char const * n) {
-    lista = new listaDepartamentos(n, -1);
-    setNome(n);
+Universidade::Universidade(int identificador) {
+    id = identificador;
 }
 
 Universidade::~Universidade() {
-    delete(lista);
 }
 
 void Universidade::setNome(char const *n) {
     strcpy(Nome, n);
-    lista->setNome(n);
+    lista.setNome(n);
 }
 
 char* Universidade::getNome() {
@@ -23,9 +21,13 @@ char* Universidade::getNome() {
 
 void Universidade::setDepartamento(Departamento* departamento)
 {
-    lista->setDpto(departamento);
+    lista.setDpto(departamento);
 }
 
 void Universidade::imprimeDepartamentos() {
-    lista->imprimeDptos();
+    lista.imprimeDptos();
+}
+
+int Universidade::getId() {
+    return id;
 }

@@ -7,19 +7,17 @@
 
 
 
-Departamento::Departamento(char const *n) {
+Departamento::Departamento(int identificador) {
+    id = identificador;
     pUniv = NULL;
-    lista = new listaDisciplinas(n, -1);
-    setNome(n);
 }
 
 Departamento::~Departamento() {
-        delete(lista);
 }
 
 void Departamento::setNome(const char *n) {
     strcpy(nome, n);
-    lista->setNome(n);
+    lista.setNome(n);
 }
 
 char *Departamento::getNome() {
@@ -31,9 +29,13 @@ void Departamento::setUniv(Universidade *universidade) {
 }
 
 void Departamento::setDisciplina(Disciplina *disc) {
-    lista->setDisciplina(disc);
+    lista.setDisciplina(disc);
 }
 
 void Departamento::imprimeDisciplinas() {
-    lista->imprimeDisciplinas();
+    lista.imprimeDisciplinas();
+}
+
+int Departamento::getId() {
+    return id;
 }

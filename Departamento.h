@@ -9,18 +9,20 @@
 class Universidade;
 class Departamento {
 private:
+    int id;
     char nome[30];
     Universidade* pUniv;
-    listaDisciplinas* lista;
+    listaDisciplinas lista;
 
 public:
-    Departamento(char const *n="");
+    Departamento(int identificador=-1);
     ~Departamento();
     void setNome(char const *n);
     char* getNome();
     void setUniv(Universidade* universidade);
     void setDisciplina(Disciplina * disc);
     void imprimeDisciplinas();
+    int getId();
 
 };
 

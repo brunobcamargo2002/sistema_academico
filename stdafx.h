@@ -7,7 +7,6 @@
 
 #include <time.h>
 #include <string.h>
-
 #include <iostream>
 using std::cout;
 using std::endl;

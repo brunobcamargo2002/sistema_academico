@@ -8,6 +8,7 @@
 #include "Universidade.h"
 class Pessoa {
 protected:
+    int id;
     int diaP;
     int mesP;
     int anoP;
@@ -16,14 +17,15 @@ protected:
 
 
 public:
-    Pessoa(int diaNa, int mesNa, int anoNa, char const * nome);
-    Pessoa();
+    Pessoa(int identificador=-1);
     ~Pessoa();
     void Inicializa(int diaNa, int mesNa, int anoNa, char const * nome="");
     int getIdade();
     void printIdade();
+    void setNome(const char * name);
     char* getNome();
     void calcIdade(int diaAt, int mesAt, int anoAt);
+    int getId();
 
 //int getIdade();
 //char* getNome();

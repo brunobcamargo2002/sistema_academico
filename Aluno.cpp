@@ -4,8 +4,8 @@
 #include "stdafx.h"
 #include "Aluno.h"
 
-Aluno::Aluno(int diaNa, int mesNa, int anoNa, const char *nome, int RegAc=-1):Pessoa(diaNa, mesNa, anoNa, nome) {
-    setRA(RA);
+Aluno::Aluno(int identificador):Pessoa(identificador) {
+    RA = 0;
     pUniv = NULL;
 }
 Aluno::Aluno(){
@@ -16,7 +16,7 @@ Aluno::~Aluno(){
 
 }
 
-int Aluno::setRA(int RegAc)
+void Aluno::setRA(int RegAc)
 {
     RA = RegAc;
 }

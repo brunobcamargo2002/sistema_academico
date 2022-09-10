@@ -4,10 +4,27 @@
 #include "stdafx.h"
 #include "Principal.h"
 
-
-Principal::Principal()
+#include <fstream>
+using namespace std;
+Principal::Principal():
+        idContUnivs(0),
+        idContDptos(0),
+        idContDisciplinas(0),
+        idContProfessores(0),
+        idContAlunos(0),
+        //Professores
+        Newton(idContProfessores++), Einstein(idContProfessores++), Simao(idContProfessores++),
+        //Universidades
+        Cambridge(idContUnivs++), Princeton(idContUnivs++), UTFPR(idContUnivs++),
+        //Departamentos
+        DAINF(idContDptos++), DAELN(idContDptos++), DAFIS(idContDptos++), DAQUI(idContDptos++)
+        , FisicaCambridge(idContDptos++), FisicaPrinceton(idContDptos++),
+        //Disciplinas
+        fundProg(idContDisciplinas++), tecProg(idContDisciplinas++), estDados(idContDisciplinas++),
+        //Pessoas
+        Bruno(idContAlunos++), Joao(idContAlunos++), Pedro(idContAlunos++),
+        Renato(idContAlunos++), Renato2(idContAlunos++)
 {
-
     inicializarUniversidade();
     inicializarDepartamento();
     inicializarProfessor();
@@ -33,6 +50,8 @@ void Principal::Executar(){
     execProfessor();
     execAluno();
     execDisciplina();
+
+    Menu();
 
 }
 
@@ -148,7 +167,6 @@ void Principal::execDisciplina() {
 
 }
 
-
 void Principal::execProfessor() {
     Newton.calcIdade(diaAt, mesAt, anoAt);
     Einstein.calcIdade(diaAt, mesAt, anoAt);
@@ -168,3 +186,377 @@ void Principal::execAluno() {
     Bruno.OndeEstudo();
 
 }
+
+void Principal::Menu() {
+    int op=-1;
+    while(op!=5)
+    {
+        system("clear");
+        cout<<"Cadastrar 1"<<endl;
+        cout<<"Executar 2"<<endl;
+        cout<<"Gravar 3"<<endl;
+        cout<<"Recuperar 4"<<endl;
+        cout<<"Sair do menu 5"<<endl;
+        cin>>op;
+        switch(op){
+            case 1:MenuCad();break;
+            case 2:MenuExec();break;
+            case 3:MenuGravar();break;
+            case 4:MenuRecuperar();break;
+            case 5:cout<<"FIM"<<endl;break;
+            default: {cout<<"Opção inválida."<<endl;fflush(stdin);system("pause()");}break;
+        }
+    }
+}
+
+void Principal::MenuCad() {
+    int op = -1;
+
+    while (op != 5) {
+        system("clear");
+        cout << "Cadastrar universidade 1" << endl;
+        cout << "Cadastrar departamento 2" << endl;
+        cout << "Cadastrar disciplina 3" << endl;
+        cout << "Cadastrar aluno 4" <<endl;
+        cout << "Sair do menu cadastro 5" << endl;
+        cin >> op;
+        switch (op) {
+            case 1:CadUniversidade();break;
+            case 2:CadDepartamento();break;
+            case 3:CadDisciplina();break;
+            case 4:CadAluno();break;
+            case 5:cout << "FIM" << endl;break;
+            default:{cout << "Opção inválida." << endl;fflush(stdin);system("pause()");}break;
+        }
+    }
+}
+
+void Principal::CadUniversidade() {
+    char nome[150];
+    Universidade * aux1;
+
+    cout<<"Insira o nome da universidade: ";
+    cin>>nome;
+    aux1 = new Universidade(idContUnivs++);
+    aux1->setNome(nome);
+    LUniversidades.incluaUniv(aux1);
+}
+
+void Principal::CadDepartamento() {
+    char nome[150];
+    Universidade* univ = NULL;
+    cout<<"Insira o nome da universidade que você deseja cadastrar o departamento: ";
+    cin>>nome;
+    univ = LUniversidades.localizar(nome);
+    if(univ!=NULL){
+        Departamento* dpto;
+        dpto = new Departamento(idContDptos++);
+        cout<<"Insira o nome do departamento: ";
+        cin>>nome;
+        dpto->setNome(nome);
+        dpto->setUniv(univ);
+        LDepartamentos.setDpto(dpto);
+        univ->setDepartamento(dpto);
+    }
+    else {
+        cout << "Universidade inexistente" << endl;
+        fflush(stdin);
+        getchar();
+    }
+}
+
+void Principal::CadDisciplina() {
+    char nome[150];
+    Departamento* dpto = NULL;
+    cout<<"Insira o departamento que você deseja cadastrar a disciplina";
+    cin>>nome;
+    dpto = LDepartamentos.localizar(nome);
+    if(dpto!=NULL)
+    {
+        Disciplina* disc;
+        disc = new Disciplina(idContDisciplinas++);
+        cout<<"Insira o nome da disciplina: ";
+        cin>>nome;
+        disc->setNome(nome);
+        disc->setDpto(dpto);
+        LDisciplinas.setDisciplina(disc);
+        dpto->setDisciplina(disc);
+    }
+    else {
+        cout << "Departamento inexistente" << endl;
+        fflush(stdin);
+        getchar();
+    }
+}
+
+void Principal::CadAluno() {
+    char nome[50];
+    Aluno* aux;
+    int RA;
+    cout<<"Insira o nome do aluno: ";
+    cin>>nome;
+    cout<<"Insira o RA do aluno: ";
+    cin>>RA;
+    aux = new Aluno(idContAlunos++);
+    aux->setNome(nome);
+    aux->setRA(RA);
+    LAlunos.setAluno(aux);
+}
+
+void Principal::MenuExec() {
+    int op = -1;
+
+    while(op !=5)
+    {
+        system("clear");
+        cout<<"Imprimir lista universidades 1"<<endl;
+        cout<<"Imprimir lista departamentos 2"<<endl;
+        cout<<"Imprimir lista disciplinas 3"<<endl;
+        cout<<"Imprimir lista alunos 4"<<endl;
+        cout<<"Sair 5"<<endl;
+        cin>>op;
+        switch(op){
+            case 1:{LUniversidades.listeUnivs();fflush(stdin);getchar();}break;
+            case 2:{LDepartamentos.imprimeDptos();fflush(stdin);getchar();}break;
+            case 3:{LDisciplinas.imprimeDisciplinas();fflush(stdin);getchar();}break;
+            case 4:{LAlunos.imprimeAlunos();fflush(stdin);getchar();}break;
+            case 5:cout<<"Saindo do menu cadastro"<<endl;break;
+            default:{cout<<"Valor inserido inválido"<<endl;fflush(stdin);getchar();}break;
+        }
+    }
+}
+
+void Principal::MenuGravar() {
+    int op = -1;
+
+    while(op !=6)
+    {
+        system("clear");
+        cout<<"Gravar tudo 1"<<endl;
+        cout<<"Gravar universidades 2"<<endl;
+        cout<<"Gravar departamentos 3"<<endl;
+        cout<<"Gravar disciplinas 4"<<endl;
+        cout<<"Gravar alunos 5"<<endl;
+        cout<<"Sair 6"<<endl;
+        cin>>op;
+        switch(op){
+            case 1:gravarTudo();break;
+            case 2:gravarUnivs();break;
+            case 3:gravarDptos();break;
+            case 4:gravarDisciplinas();break;
+            case 5:gravarAlunos();break;
+            case 6:cout<<"Saindo do menu gravar"<<endl;break;
+            default:{cout<<"Valor inserido inválido"<<endl;fflush(stdin);getchar();}break;
+        }
+    }
+
+}
+void Principal::gravarTudo() {
+    gravarUnivs();
+    gravarDptos();
+    gravarDisciplinas();
+    gravarAlunos();
+}
+
+void Principal::gravarUnivs() {
+    ofstream GravadorUnivs( "Universidades.txt", ios::out );
+    if(!GravadorUnivs){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    elUniversidade* pElUniversidade=LUniversidades.pPrimeiraUniv;
+    Universidade* pUniversidade;
+    while(pElUniversidade!=NULL)
+    {
+        pUniversidade = pElUniversidade->getUniv();
+        GravadorUnivs<<pUniversidade->getId()<<" "<<pUniversidade->getNome()<<endl;
+        pElUniversidade = pElUniversidade->pProxUniv;
+    }
+    GravadorUnivs.close();
+
+}
+
+void Principal::gravarDptos() {
+    ofstream GravadorDptos( "Departamentos.txt", ios::out );
+    if(!GravadorDptos){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    elDepartamento* pElDpto=LDepartamentos.pPrimeiroDpto;
+    Departamento* pDpto;
+    while(pElDpto!=NULL)
+    {
+        pDpto = pElDpto->getDpto();
+        GravadorDptos<<pDpto->getId()<<" "<<pDpto->getNome()<<endl;
+        pElDpto = pElDpto->pProxDpto;
+    }
+    GravadorDptos.close();
+
+}
+
+void Principal::gravarDisciplinas() {
+    ofstream GravadorDisciplinas( "Disciplinas.txt", ios::out );
+    if(!GravadorDisciplinas){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    elDisciplina* pElDisciplina=LDisciplinas.pPrimeiraDisciplina;
+    Disciplina* pDisciplina=NULL;
+    while(pElDisciplina!=NULL)
+    {
+        pDisciplina = pElDisciplina->getDisciplina();
+        GravadorDisciplinas<<pDisciplina->getId()<<" "<<pDisciplina->getNome()<<endl;
+        pElDisciplina = pElDisciplina->pProxDisciplina;
+    }
+    GravadorDisciplinas.close();
+
+}
+
+void Principal::gravarAlunos() {
+    ofstream GravadorAlunos( "Alunos.txt", ios::out );
+    if(!GravadorAlunos){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    elAluno* pElAluno=LAlunos.pPrimeiroAluno;
+    Aluno* pAluno;
+    while(pElAluno!=NULL)
+    {
+        pAluno = pElAluno->getAluno();
+        GravadorAlunos<<pAluno->getId()<<" "<<pAluno->getRA()<<" "<<pAluno->getNome()<<endl;
+        pElAluno = pElAluno->pProxAluno;
+    }
+    GravadorAlunos.close();
+}
+
+void Principal::MenuRecuperar() {
+    int op = -1;
+
+    while(op !=6)
+    {
+        system("clear");
+        cout<<"Recuperar tudo 1"<<endl;
+        cout<<"Recuperar universidades 2"<<endl;
+        cout<<"Recuperar departamentos 3"<<endl;
+        cout<<"Recuperar disciplinas 4"<<endl;
+        cout<<"Recuperar alunos 5"<<endl;
+        cout<<"Recuperar 6"<<endl;
+        cin>>op;
+        switch(op){
+            case 1:
+                RecuperarTudo();break;
+            case 2:RecuperarUnivs();break;
+            case 3:RecuperarDptos();break;
+            case 4:RecuperarDisciplinas();break;
+            case 5:RecuperarAlunos();break;
+            case 6:cout<<"Saindo do menu gravar"<<endl;break;
+            default:{cout<<"Valor inserido inválido"<<endl;fflush(stdin);getchar();}break;
+        }
+    }
+
+}
+
+void Principal::RecuperarTudo() {
+    RecuperarUnivs();
+    RecuperarDptos();
+    RecuperarDisciplinas();
+    RecuperarAlunos();
+}
+
+void Principal::RecuperarUnivs() {
+    ifstream RecuperadorUnivs("Universidades.txt", ios::in);
+    if(!RecuperadorUnivs){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    int id;
+    char nome[50];
+    Universidade* univ;
+    while(RecuperadorUnivs>>id>>nome){
+
+            univ =new Universidade(id);
+            univ->setNome(nome);
+            LUniversidades.incluaUniv(univ);
+    }
+    RecuperadorUnivs.close();
+
+}
+
+void Principal::RecuperarDptos() {
+    ifstream RecuperadorDptos("Departamentos.txt", ios::in);
+    if(!RecuperadorDptos){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    int id;
+    char nome[50];
+    Departamento* dpto;
+    while(RecuperadorDptos>>id>>nome){
+
+        dpto =new Departamento(id);
+        dpto->setNome(nome);
+        LDepartamentos.setDpto(dpto);
+    }
+    RecuperadorDptos.close();
+
+}
+
+void Principal::RecuperarDisciplinas() {
+    ifstream RecuperadorDiscs("Disciplinas.txt", ios::in);
+    if(!RecuperadorDiscs){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    int id;
+    char nome[50];
+    Disciplina* disc;
+    while(RecuperadorDiscs>>id>>nome){
+
+        disc =new Disciplina(id);
+        disc->setNome(nome);
+        LDisciplinas.setDisciplina(disc);
+    }
+    RecuperadorDiscs.close();
+
+}
+
+void Principal::RecuperarAlunos() {
+    ifstream RecuperadorAlunos("Alunos.txt", ios::in);
+    if(!RecuperadorAlunos){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    int id, RA;
+    char nome[50];
+    while(RecuperadorAlunos>>id>>RA>>nome){
+        if(strcmp(nome, "")){
+            Aluno* aux =new Aluno(id);
+            aux->setRA(RA);
+            aux->setNome(nome);
+            LAlunos.setAluno(aux);
+        }
+    }
+    RecuperadorAlunos.close();
+}
+
+
+
+
+
+

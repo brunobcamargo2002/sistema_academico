@@ -9,16 +9,17 @@
 class listaDisciplinas {
 private:
     int numDisciplinas, maxDisciplinas;
-    elDisciplina* pPrimeiraDisciplina;
-    elDisciplina* pDisciplinaAtual;
     char nome[150];
 
 public:
+    elDisciplina* pPrimeiraDisciplina;
+    elDisciplina* pDisciplinaAtual;
     listaDisciplinas(const char* name = "", int maxDisc= 1000);
     ~listaDisciplinas();
     void setDisciplina(Disciplina * disc);
     void imprimeDisciplinas();
     void setNome(const char* name);
+
 
 };
 

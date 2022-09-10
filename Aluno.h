@@ -13,10 +13,10 @@ private:
     int RA;
     Universidade* pUniv;
 public:
-    Aluno(int diaNa, int mesNa, int anoNa, char const * nome, int RegAc);
+    Aluno(int identificador);
     Aluno();
     ~Aluno();
-    int setRA(int RegAc);
+    void setRA(int RegAc);
     int getRA();
     void setUniv(Universidade* Universidade);
     void OndeEstudo();

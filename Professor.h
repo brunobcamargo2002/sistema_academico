@@ -11,8 +11,7 @@ private:
     Universidade *pUnivAfiliada;
     Departamento *pDptoAfiliado;
 public:
-    Professor(int diaNa, int mesNa, int anoNa, char const * nome);
-    Professor();
+    Professor(int identificador=-1);
     ~Professor();
     void setUnivAfiliada(Universidade* Univ);
     void setDptoAfiliado(Departamento* dep);

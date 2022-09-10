@@ -4,6 +4,8 @@
 
 #include "listaAlunos.h"
 
+#include <fstream>
+
 listaAlunos::listaAlunos(int na, const char* name) {
     strcpy(nome, name);
     maxAlunos = na;
@@ -144,3 +146,6 @@ void listaAlunos::setNome(const char *name) {
     strcpy(nome, name);
 
 }
+
+
+

@@ -61,3 +61,16 @@ void listaDepartamentos::imprimeDptos() {
 void listaDepartamentos::setNome(const char* n) {
     strcpy(nome, n);
 }
+
+Departamento *listaDepartamentos::localizar(const char *nome) {
+    elDepartamento* aux=pPrimeiroDpto;
+
+    while(aux!=NULL){
+        if(!strcmp(aux->getNome(), nome))
+            return aux->getDpto();
+        aux = aux->pProxDpto;
+    }
+    return NULL;
+}
+
+

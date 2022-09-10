@@ -20,7 +20,7 @@ void elDisciplina::setDisciplina(Disciplina *disciplina1) {
 }
 
 char* elDisciplina::getNome() {
-    disciplina->getNome();
+    return disciplina->getNome();
 }
 
 Disciplina* elDisciplina::getDisciplina() {

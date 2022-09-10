@@ -4,12 +4,10 @@
 #include "stdafx.h"
 #include "Pessoa.h"
 
-Pessoa::Pessoa(int diaNa, int mesNa, int anoNa,char const *nome="") {
-    Inicializa(diaNa, mesNa, anoNa, nome);
+Pessoa::Pessoa(int identificador) {
+    id = identificador;
 }
-Pessoa::Pessoa(){
-    Inicializa(0, 0, 0);
-}
+
 Pessoa::~Pessoa(){
 
 }
@@ -39,6 +37,14 @@ char* Pessoa::getNome(){
 }
 void Pessoa::printIdade(){
     cout<<"O "<<getNome()<<" tem "<<getIdade()<<" anos."<<endl;
+}
+
+void Pessoa::setNome(const char *name) {
+    strcpy(nomeP, name);
+}
+
+int Pessoa::getId() {
+    return id;
 }
 
 

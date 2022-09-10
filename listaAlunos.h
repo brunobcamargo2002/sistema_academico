@@ -9,13 +9,13 @@
 
 class listaAlunos {
 private:
-    elAluno* pPrimeiroAluno;
-    elAluno* pAlunoAtual;
     int maxAlunos;
     int numAlunos;
     char nome[150];
 
 public:
+    elAluno* pPrimeiroAluno;
+    elAluno* pAlunoAtual;
     listaAlunos(int na =45, const char* name="");
     ~listaAlunos();
     void setAluno(Aluno *aluno);

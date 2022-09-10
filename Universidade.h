@@ -12,17 +12,19 @@ using namespace std;
 
 class Universidade {
 private:
-    char Nome[30];
-    listaDepartamentos* lista;
+    int id;
+    char Nome[150];
+    listaDepartamentos lista;
 
 
 public:
     void setNome(char const * n);
     void setDepartamento(Departamento* departamento);
     void imprimeDepartamentos();
-    Universidade(char const * n ="");
+    Universidade(int id=-1);
     ~Universidade();
     char* getNome();
+    int getId();
 
 
 };

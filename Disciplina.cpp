@@ -4,9 +4,9 @@
 
 #include "Disciplina.h"
 
-Disciplina::Disciplina(const char *codigo)
+Disciplina::Disciplina(int identificador)
 {
-    setNome(codigo);
+    id = identificador;
     dptoFiliado= NULL;
 }
 
@@ -54,6 +54,10 @@ void Disciplina::addFalta(Aluno *aluno, int f) {
 
 void Disciplina::imprimeMedias() {
     lista.imprimeMedias();
+}
+
+int Disciplina::getId() {
+    return id;
 }
 
 

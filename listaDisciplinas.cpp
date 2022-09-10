@@ -3,6 +3,8 @@
 //
 
 #include "listaDisciplinas.h"
+#include <fstream>
+using namespace std;
 
 listaDisciplinas::listaDisciplinas(const char* name, int maxDisc) {
     numDisciplinas = 0;
@@ -53,3 +55,4 @@ void listaDisciplinas::imprimeDisciplinas() {
 void listaDisciplinas::setNome(const char *name) {
     strcpy(nome, name);
 }
+

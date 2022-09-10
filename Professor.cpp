@@ -5,12 +5,7 @@
 #include "Professor.h"
 
 
-Professor::Professor(int diaNa, int mesNa, int anoNa, const char *nome) : Pessoa(diaNa, mesNa, anoNa, nome) {
-    pUnivAfiliada = NULL;
-    pDptoAfiliado = NULL;
-}
-
-Professor::Professor() : Pessoa() {
+Professor::Professor(int identificador) : Pessoa(identificador) {
     pUnivAfiliada = NULL;
     pDptoAfiliado = NULL;
 }

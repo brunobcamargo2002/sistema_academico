@@ -10,6 +10,7 @@
 #include "Departamento.h"
 class Disciplina {
 private:
+    int id;
     char nome[150];
     Departamento* dptoFiliado;
     listaAlunos lista;
@@ -17,7 +18,7 @@ private:
 
 public:
 
-    Disciplina(const char * codigo="");
+    Disciplina(int identificador=-1);
     ~Disciplina();
     void setNome(const char * codigo);
     char* getNome();
@@ -29,6 +30,7 @@ public:
     void setNota2(Aluno* aluno, float nota2);
     void addFalta(Aluno* aluno, int f);
     void imprimeMedias();
+    int getId();
 
 
 };

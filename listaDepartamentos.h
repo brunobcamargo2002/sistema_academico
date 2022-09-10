@@ -10,15 +10,17 @@
 class listaDepartamentos {
 private:
     int numDptos, maxDptos;
-    elDepartamento* pPrimeiroDpto;
-    elDepartamento* pDptoAtual;
+
     char nome[30];
 public:
+    elDepartamento* pPrimeiroDpto;
+    elDepartamento* pDptoAtual;
     listaDepartamentos(const char *name="",int maxDep = 50);
     ~listaDepartamentos();
     void setDpto(Departamento* dpto);
     void imprimeDptos();
     void setNome(const char* n);
+    Departamento* localizar(const char * nome);
 
 
 
