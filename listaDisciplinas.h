@@ -19,6 +19,7 @@ public:
     void setDisciplina(Disciplina * disc);
     void imprimeDisciplinas();
     void setNome(const char* name);
+    Disciplina* localizarID(int id);
 
 
 };

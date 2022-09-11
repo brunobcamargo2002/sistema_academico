@@ -147,5 +147,18 @@ void listaAlunos::setNome(const char *name) {
 
 }
 
+Aluno *listaAlunos::localizarID(int id) {
+    elAluno* pElAluno=pPrimeiroAluno;
+    Aluno* pAluno;
+
+    while(pElAluno!=NULL){
+        pAluno = pElAluno->getAluno();
+        if(id == pAluno->getId())
+            return pAluno;
+        pElAluno = pElAluno->pProxAluno;
+    }
+    return NULL;
+}
+
 
 

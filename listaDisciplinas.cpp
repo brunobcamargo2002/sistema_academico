@@ -4,6 +4,7 @@
 
 #include "listaDisciplinas.h"
 #include <fstream>
+#include "Disciplina.h"
 using namespace std;
 
 listaDisciplinas::listaDisciplinas(const char* name, int maxDisc) {
@@ -54,5 +55,18 @@ void listaDisciplinas::imprimeDisciplinas() {
 
 void listaDisciplinas::setNome(const char *name) {
     strcpy(nome, name);
+}
+
+Disciplina* listaDisciplinas::localizarID(int id) {
+    elDisciplina* pElDisc= pPrimeiraDisciplina;
+    Disciplina* pDisc;
+
+    while(pElDisc!=NULL){
+        pDisc = pElDisc->getDisciplina();
+        if(id == pDisc->getId())
+            return pDisc;
+        pElDisc = pElDisc->pProxDisciplina;
+    }
+    return NULL;
 }
 

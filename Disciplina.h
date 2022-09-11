@@ -13,7 +13,6 @@ private:
     int id;
     char nome[150];
     Departamento* dptoFiliado;
-    listaAlunos lista;
 
 
 public:
@@ -23,6 +22,7 @@ public:
     void setNome(const char * codigo);
     char* getNome();
     void setDpto(Departamento* dpto);
+    int getDpto();
     void setAluno(Aluno *aluno);
     void removeAluno(Aluno *aluno);
     void imprimeAlunos();
@@ -33,6 +33,7 @@ public:
     int getId();
 
 
+    listaAlunos lista;
 };
 
 

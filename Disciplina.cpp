@@ -27,6 +27,10 @@ void Disciplina::setDpto(Departamento *dpto) {
     dptoFiliado = dpto;
 }
 
+int Disciplina::getDpto(){
+    return dptoFiliado->getId();
+}
+
 void Disciplina::setAluno(Aluno *aluno) {
     lista.setAluno(aluno);
 

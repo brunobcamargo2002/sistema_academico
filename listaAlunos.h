@@ -26,6 +26,7 @@ public:
     void addFalta(Aluno* aluno, int f);
     void imprimeMedias();
     void setNome(const char * name);
+    Aluno* localizarID(int id);
 
 
 };

@@ -73,4 +73,17 @@ Departamento *listaDepartamentos::localizar(const char *nome) {
     return NULL;
 }
 
+Departamento *listaDepartamentos::localizarID(int id) {
+    elDepartamento* pElDpto=pPrimeiroDpto;
+    Departamento* pDpto;
+
+    while(pElDpto!=NULL){
+        pDpto = pElDpto->getDpto();
+        if(id == pDpto->getId())
+            return pDpto;
+        pElDpto = pElDpto->pProxDpto;
+    }
+    return NULL;
+}
+
 

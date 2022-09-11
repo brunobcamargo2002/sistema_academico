@@ -39,3 +39,9 @@ void Departamento::imprimeDisciplinas() {
 int Departamento::getId() {
     return id;
 }
+
+int Departamento::getUnivAssociada() {
+   if(pUniv==NULL)
+       return -1;
+    return pUniv->getId();
+}

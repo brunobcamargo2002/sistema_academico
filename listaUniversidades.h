@@ -18,6 +18,7 @@ public:
     void incluaUniv(Universidade* universidade);
     void listeUnivs();
     Universidade* localizar(const char * nome);
+    Universidade* localizarID(int id);
 
 
 

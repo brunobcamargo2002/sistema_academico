@@ -45,6 +45,7 @@ Principal::~Principal() {
 }
 void Principal::Executar(){
 
+
     execUniversidade();
     execDepartamento();
     execProfessor();
@@ -52,6 +53,12 @@ void Principal::Executar(){
     execDisciplina();
 
     Menu();
+
+    Universidade * aux1 = LUniversidades.localizarID(3);
+    Universidade* aux2 = LUniversidades.localizarID(4);
+
+    aux1->imprimeDepartamentos();
+    aux2->imprimeDepartamentos();
 
 }
 
@@ -326,6 +333,8 @@ void Principal::MenuExec() {
     }
 }
 
+
+
 void Principal::MenuGravar() {
     int op = -1;
 
@@ -368,15 +377,16 @@ void Principal::gravarUnivs() {
     }
     elUniversidade* pElUniversidade=LUniversidades.pPrimeiraUniv;
     Universidade* pUniversidade;
-    while(pElUniversidade!=NULL)
-    {
+    while(pElUniversidade!=NULL){
         pUniversidade = pElUniversidade->getUniv();
         GravadorUnivs<<pUniversidade->getId()<<" "<<pUniversidade->getNome()<<endl;
         pElUniversidade = pElUniversidade->pProxUniv;
     }
     GravadorUnivs.close();
-
+    gravarRUnivs();
 }
+
+
 
 void Principal::gravarDptos() {
     ofstream GravadorDptos( "Departamentos.txt", ios::out );
@@ -395,8 +405,10 @@ void Principal::gravarDptos() {
         pElDpto = pElDpto->pProxDpto;
     }
     GravadorDptos.close();
+    gravarRDptos();
 
 }
+
 
 void Principal::gravarDisciplinas() {
     ofstream GravadorDisciplinas( "Disciplinas.txt", ios::out );
@@ -415,8 +427,11 @@ void Principal::gravarDisciplinas() {
         pElDisciplina = pElDisciplina->pProxDisciplina;
     }
     GravadorDisciplinas.close();
+    gravarRDisciplinas();
 
 }
+
+
 
 void Principal::gravarAlunos() {
     ofstream GravadorAlunos( "Alunos.txt", ios::out );
@@ -469,6 +484,10 @@ void Principal::RecuperarTudo() {
     RecuperarDptos();
     RecuperarDisciplinas();
     RecuperarAlunos();
+    recuperarRUnivs();
+    recuperarRDptos();
+    recuperarRDisciplinas();
+    recuperarRAlunos();
 }
 
 void Principal::RecuperarUnivs() {
@@ -491,6 +510,10 @@ void Principal::RecuperarUnivs() {
     RecuperadorUnivs.close();
 
 }
+
+
+
+
 
 void Principal::RecuperarDptos() {
     ifstream RecuperadorDptos("Departamentos.txt", ios::in);
@@ -530,6 +553,7 @@ void Principal::RecuperarDisciplinas() {
         disc->setNome(nome);
         LDisciplinas.setDisciplina(disc);
     }
+
     RecuperadorDiscs.close();
 
 }
@@ -554,6 +578,203 @@ void Principal::RecuperarAlunos() {
     }
     RecuperadorAlunos.close();
 }
+
+
+void Principal::gravarRUnivs() {
+    ofstream arquivo("RUniversidades.txt", ios::out);
+
+    if(!arquivo){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    elUniversidade* pElUniversidade = LUniversidades.pPrimeiraUniv;
+    Universidade* pUniversidade;
+    elDepartamento* pElDpto;
+    Departamento* pDpto;
+
+    while(pElUniversidade!=NULL){
+        pUniversidade = pElUniversidade->getUniv();
+        arquivo<<pUniversidade->getId()<<" ";
+        pElDpto = pUniversidade->lista.pPrimeiroDpto;
+        while(pElDpto!=NULL){
+            pDpto = pElDpto->getDpto();
+            arquivo<<pDpto->getId()<<" ";
+            pElDpto = pElDpto->pProxDpto;
+        }
+        arquivo<<-1<<endl;
+        pElUniversidade = pElUniversidade->pProxUniv;
+    }
+
+    arquivo.close();
+}
+
+void Principal::gravarRDptos() {
+
+    ofstream arquivo("RDepartamentos.txt", ios::out);
+
+    if(!arquivo){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    elDepartamento* pElDpto = LDepartamentos.pPrimeiroDpto;
+    Departamento* pDpto;
+    elDisciplina* pElDisc;
+    Disciplina* pDisc;
+
+    while(pElDpto!=NULL){
+        pDpto = pElDpto->getDpto();
+        arquivo<<pDpto->getId()<<" ";
+        arquivo<<pDpto->getUnivAssociada()<<" ";
+        pElDisc = pDpto->lista.pPrimeiraDisciplina;
+        while(pElDisc!=NULL){
+            pDisc = pElDisc->getDisciplina();
+            arquivo<<pDisc->getId()<<" ";
+            pElDisc = pElDisc->pProxDisciplina;
+        }
+        arquivo<<-1<<endl;
+        pElDpto = pElDpto->pProxDpto;
+    }
+
+    arquivo.close();
+
+}
+
+void Principal::gravarRDisciplinas() {
+    ofstream arquivo("RDisciplinas.txt", ios::out);
+
+    if(!arquivo){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+    elDisciplina* pElDisc = LDisciplinas.pPrimeiraDisciplina;
+    Disciplina* pDisc;
+    elAluno* pElAluno;
+    Aluno* pAluno;
+
+    while(pElDisc!=NULL){
+        pDisc = pElDisc->getDisciplina();
+        arquivo<<pDisc->getId()<<" ";
+        arquivo<<pDisc->getDpto()<<" ";
+        pElAluno = pDisc->lista.pPrimeiroAluno;
+        while(pElAluno!=NULL){
+            pAluno = pElAluno->getAluno();
+            arquivo<<pAluno->getId()<<" ";
+            pElAluno = pElAluno->pProxAluno;
+        }
+        arquivo<<-1<<endl;
+        pElDisc = pElDisc->pProxDisciplina;
+    }
+    arquivo.close();
+
+
+}
+
+void Principal::gravarRAlunos() {
+
+}
+
+void Principal::recuperarRUnivs() {
+    Universidade *pUniv;
+    Departamento *pDpto;
+    int idUniv, idDpto;
+    ifstream arquivo("RUniversidades.txt", ios::in);
+
+    if(!arquivo){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+
+    while(arquivo>>idUniv)
+    {
+        pUniv = LUniversidades.localizarID(idUniv);
+        while((arquivo>>idDpto)&& idDpto!=-1)
+        {
+            pDpto = LDepartamentos.localizarID(idDpto);
+            if(pDpto!=NULL)
+                pUniv->setDepartamento(pDpto);
+        }
+    }
+}
+
+void Principal::recuperarRDptos() {
+
+    Departamento *pDpto;
+    Universidade * pUniv;
+    Disciplina *pDisc;
+    int  idDpto,idUniv, idDisc;
+    ifstream arquivo("RDepartamentos.txt", ios::in);
+
+    if(!arquivo){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+
+    while(arquivo>>idDpto)
+    {
+        pDpto = LDepartamentos.localizarID(idDpto);
+        arquivo>>idUniv;
+        pUniv = LUniversidades.localizarID(idUniv);
+        pDpto->setUniv(pUniv);
+        while((arquivo>>idDisc) && idDisc!=-1)
+        {
+            pDisc = LDisciplinas.localizarID(idDisc);
+            if(pDisc!=NULL)
+                pDpto->setDisciplina(pDisc);
+        }
+    }
+    arquivo.close();
+
+}
+
+void Principal::recuperarRDisciplinas() {
+    Disciplina *pDisc;
+    Departamento * pDpto;
+    Aluno *pAluno;
+    int  idDisc,idDpto, idAluno;
+    ifstream arquivo("RDisciplinas.txt", ios::in);
+
+    if(!arquivo){
+        cerr<<"Arquivo não pode ser aberto"<<endl;
+        fflush(stdin);
+        getchar();
+        return;
+    }
+
+    while(arquivo>>idDisc)
+    {
+        pDisc = LDisciplinas.localizarID(idDisc);
+        arquivo>>idDpto;
+        pDpto = LDepartamentos.localizarID(idDpto);
+        pDisc->setDpto(pDpto);
+        while((arquivo>>idAluno) && idAluno!=-1)
+        {
+            pAluno = LAlunos.localizarID(idAluno);
+            if(pAluno!=NULL)
+                pDisc->setAluno(pAluno);
+        }
+    }
+    arquivo.close();
+}
+
+void Principal::recuperarRAlunos() {
+
+}
+
+
+
+
+
+
 
 
 

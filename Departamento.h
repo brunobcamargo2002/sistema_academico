@@ -12,7 +12,7 @@ private:
     int id;
     char nome[30];
     Universidade* pUniv;
-    listaDisciplinas lista;
+
 
 public:
     Departamento(int identificador=-1);
@@ -20,10 +20,12 @@ public:
     void setNome(char const *n);
     char* getNome();
     void setUniv(Universidade* universidade);
+    int getUnivAssociada();
     void setDisciplina(Disciplina * disc);
     void imprimeDisciplinas();
     int getId();
 
+    listaDisciplinas lista;
 };
 
 

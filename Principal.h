@@ -73,12 +73,22 @@ public:
     void gravarDisciplinas();
     void gravarAlunos();
 
+    void gravarRUnivs();
+    void gravarRDptos();
+    void gravarRDisciplinas();
+    void gravarRAlunos();
+
     void MenuRecuperar();
     void RecuperarTudo();
     void RecuperarUnivs();
     void RecuperarDptos();
     void RecuperarDisciplinas();
     void RecuperarAlunos();
+
+    void recuperarRUnivs();
+    void recuperarRDptos();
+    void recuperarRDisciplinas();
+    void recuperarRAlunos();
 
 
 

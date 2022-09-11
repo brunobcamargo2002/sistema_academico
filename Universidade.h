@@ -14,10 +14,10 @@ class Universidade {
 private:
     int id;
     char Nome[150];
-    listaDepartamentos lista;
 
 
 public:
+    listaDepartamentos lista;
     void setNome(char const * n);
     void setDepartamento(Departamento* departamento);
     void imprimeDepartamentos();

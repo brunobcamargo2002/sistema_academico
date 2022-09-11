@@ -21,6 +21,7 @@ public:
     void imprimeDptos();
     void setNome(const char* n);
     Departamento* localizar(const char * nome);
+    Departamento* localizarID(int id);
 
 
 

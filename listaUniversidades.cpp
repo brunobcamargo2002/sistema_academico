@@ -62,3 +62,16 @@ Universidade* listaUniversidades::localizar(const char *nome) {
     return NULL;
 }
 
+Universidade *listaUniversidades::localizarID(int id) {
+    elUniversidade* pElUniv= pPrimeiraUniv;
+    Universidade* pUniv;
+
+    while(pElUniv!=NULL){
+        pUniv = pElUniv->getUniv();
+        if(id == pUniv->getId())
+            return pUniv;
+        pElUniv = pElUniv->pProxUniv;
+    }
+    return NULL;
+}
+
